@@ -1,6 +1,6 @@
 {
-  "last_node_id": 58,
-  "last_link_id": 84,
+  "last_node_id": 59,
+  "last_link_id": 88,
   "nodes": [
     {
       "id": 14,
@@ -14,7 +14,7 @@
         "1": 46
       },
       "flags": {},
-      "order": 7,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
@@ -46,66 +46,6 @@
       }
     },
     {
-      "id": 3,
-      "type": "KSampler",
-      "pos": [
-        911,
-        198
-      ],
-      "size": {
-        "0": 315,
-        "1": 262
-      },
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 78
-        },
-        {
-          "name": "positive",
-          "type": "CONDITIONING",
-          "link": 84
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "link": 83
-        },
-        {
-          "name": "latent_image",
-          "type": "LATENT",
-          "link": 2
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            21,
-            49
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "KSampler"
-      },
-      "widgets_values": [
-        187090627466101,
-        "randomize",
-        17,
-        6,
-        "dpmpp_2m_sde_gpu",
-        "karras",
-        1
-      ]
-    },
-    {
       "id": 36,
       "type": "LayeredDiffusionDecodeRGBA",
       "pos": [
@@ -117,7 +57,7 @@
         "1": 102
       },
       "flags": {},
-      "order": 9,
+      "order": 10,
       "mode": 0,
       "inputs": [
         {
@@ -151,39 +91,6 @@
       ]
     },
     {
-      "id": 5,
-      "type": "EmptyLatentImage",
-      "pos": [
-        480,
-        691
-      ],
-      "size": {
-        "0": 315,
-        "1": 106
-      },
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            2
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "EmptyLatentImage"
-      },
-      "widgets_values": [
-        1024,
-        1024,
-        1
-      ]
-    },
-    {
       "id": 4,
       "type": "CheckpointLoaderSimple",
       "pos": [
@@ -195,7 +102,7 @@
         "1": 98
       },
       "flags": {},
-      "order": 1,
+      "order": 0,
       "mode": 0,
       "outputs": [
         {
@@ -272,11 +179,188 @@
       ]
     },
     {
+      "id": 48,
+      "type": "SaveImage",
+      "pos": [
+        1888,
+        204
+      ],
+      "size": {
+        "0": 908.4108276367188,
+        "1": 672.8997802734375
+      },
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 52
+        }
+      ],
+      "properties": {},
+      "widgets_values": [
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "PreviewImage",
+      "pos": [
+        1449,
+        388
+      ],
+      "size": {
+        "0": 289.6058349609375,
+        "1": 299.6588134765625
+      },
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 29
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 5,
+      "type": "EmptyLatentImage",
+      "pos": [
+        713,
+        689
+      ],
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        1024,
+        1024,
+        1
+      ]
+    },
+    {
+      "id": 49,
+      "type": "LoraLoader",
+      "pos": [
+        -255,
+        754
+      ],
+      "size": [
+        482.2382775458375,
+        156.47862909695448
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 82
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 54
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            87
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            85
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoraLoader"
+      },
+      "widgets_values": [
+        "artificialguybr/StickersRedmond.safetensors",
+        1,
+        1
+      ]
+    },
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "pos": [
+        208,
+        163
+      ],
+      "size": {
+        "0": 422.84503173828125,
+        "1": 164.31304931640625
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 86
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            84
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "Sticker, a cute cat, svg, solid color background"
+      ]
+    },
+    {
       "id": 7,
       "type": "CLIPTextEncode",
       "pos": [
-        413,
-        389
+        554,
+        524
       ],
       "size": {
         "0": 425.27801513671875,
@@ -310,55 +394,89 @@
       ]
     },
     {
-      "id": 48,
-      "type": "SaveImage",
+      "id": 3,
+      "type": "KSampler",
       "pos": [
-        1888,
-        204
-      ],
-      "size": {
-        "0": 908.4108276367188,
-        "1": 672.8997802734375
-      },
-      "flags": {},
-      "order": 10,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 52
-        }
-      ],
-      "properties": {},
-      "widgets_values": [
-        "ComfyUI"
-      ]
-    },
-    {
-      "id": 49,
-      "type": "LoraLoader",
-      "pos": [
-        24,
-        739
+        911,
+        198
       ],
       "size": {
         "0": 315,
-        "1": 126
+        "1": 262
       },
       "flags": {},
-      "order": 4,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
           "name": "model",
           "type": "MODEL",
-          "link": 82
+          "link": 88
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 84
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 83
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            21,
+            49
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        187090627466101,
+        "randomize",
+        17,
+        6,
+        "dpmpp_2m_sde_gpu",
+        "karras",
+        1
+      ]
+    },
+    {
+      "id": 59,
+      "type": "LoraLoader",
+      "pos": [
+        339,
+        890
+      ],
+      "size": [
+        546.6531858053589,
+        168.045222580536
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 87
         },
         {
           "name": "clip",
           "type": "CLIP",
-          "link": 54
+          "link": 85
         }
       ],
       "outputs": [
@@ -366,7 +484,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            78
+            88
           ],
           "shape": 3,
           "slot_index": 0
@@ -375,7 +493,7 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            56
+            86
           ],
           "shape": 3,
           "slot_index": 1
@@ -385,72 +503,9 @@
         "Node name for S&R": "LoraLoader"
       },
       "widgets_values": [
-        "artificialguybr/StickersRedmond.safetensors",
+        "Norod78/SDXL-StickerSheet-Lora.safetensors",
         1,
         1
-      ]
-    },
-    {
-      "id": 20,
-      "type": "PreviewImage",
-      "pos": [
-        1449,
-        388
-      ],
-      "size": {
-        "0": 289.6058349609375,
-        "1": 299.6588134765625
-      },
-      "flags": {},
-      "order": 8,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 29
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      }
-    },
-    {
-      "id": 6,
-      "type": "CLIPTextEncode",
-      "pos": [
-        415,
-        186
-      ],
-      "size": {
-        "0": 422.84503173828125,
-        "1": 164.31304931640625
-      },
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 56
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            84
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CLIPTextEncode"
-      },
-      "widgets_values": [
-        "Sticker, a cute cat, svg, solid color background"
       ]
     }
   ],
@@ -528,22 +583,6 @@
       "CLIP"
     ],
     [
-      56,
-      49,
-      1,
-      6,
-      0,
-      "CLIP"
-    ],
-    [
-      78,
-      49,
-      0,
-      3,
-      0,
-      "MODEL"
-    ],
-    [
       81,
       4,
       0,
@@ -574,6 +613,38 @@
       3,
       1,
       "CONDITIONING"
+    ],
+    [
+      85,
+      49,
+      1,
+      59,
+      1,
+      "CLIP"
+    ],
+    [
+      86,
+      59,
+      1,
+      6,
+      0,
+      "CLIP"
+    ],
+    [
+      87,
+      49,
+      0,
+      59,
+      0,
+      "MODEL"
+    ],
+    [
+      88,
+      59,
+      0,
+      3,
+      0,
+      "MODEL"
     ]
   ],
   "groups": [],

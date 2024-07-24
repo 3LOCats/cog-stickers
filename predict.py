@@ -33,7 +33,7 @@ class Predictor(BasePredictor):
 
     def update_workflow(self, workflow, **kwargs):
         workflow["6"]["inputs"]["text"] = (
-            f"Sticker, {kwargs.get('prompt')}, svg, solid color background"
+            f"{kwargs.get('sticker_type')}, {kwargs.get('prompt')}, svg, solid color background"
         )
         workflow["7"]["inputs"]["text"] = (
             f"nsfw, nude, {kwargs.get('negative_prompt')}, photo, photography"
@@ -89,6 +89,9 @@ class Predictor(BasePredictor):
         seed: int = Input(
             default=None, description="Fix the random seed for reproducibility"
         ),
+        sticker_type: str = Input(
+            default="Sticker", description="should be either: Sticker or Stickersheet"
+        ),
     ) -> List[Path]:
         """Run a single prediction on the model"""
         self.cleanup()
@@ -101,6 +104,7 @@ class Predictor(BasePredictor):
 
         self.update_workflow(
             workflow,
+            sticker_type=sticker_type,
             width=width,
             height=height,
             steps=steps,
