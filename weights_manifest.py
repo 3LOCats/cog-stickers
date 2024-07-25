@@ -65,6 +65,18 @@ class WeightsManifest:
         return original_manifest
 
     def _generate_weights_map(self, keys, dest):
+        results = {}
+        for key in keys:
+            if not key.startswith("http"):
+                results[key] = {
+                    "url": f"{BASE_URL}/{dest}/{key}.tar",
+                    "dest": f"{BASE_PATH}/{dest}",
+                }
+            else:
+                results[key] = {"url": key, "dest": f"{BASE_PATH}/{dest}"}
+        return results
+
+    def _generate_weights_map1(self, keys, dest):
         return {
             key: {
                 "url": f"{BASE_URL}/{dest}/{key}.tar",
