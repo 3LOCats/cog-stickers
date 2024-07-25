@@ -150,7 +150,7 @@
     "artificialguybr/View360.safetensors",
     "COOLKIDS_MERGE_V2.5.safetensors",
     "fofr/emoji.safetensors",
-    "https://huggingface.co/Norod78/SDXL-StickerSheet-Lora/resolve/main/SDXL-StickerSheet-Lora.safetensors",
+    ["Norod78/SDXL-StickerSheet-Lora.safetensors","https://huggingface.co/Norod78/SDXL-StickerSheet-Lora/resolve/main/SDXL-StickerSheet-Lora.safetensors"],
     "glowneon_xl_v1.safetensors",
     "Harrlogos_v2.0.safetensors",
     "ip-adapter-faceid-plus_sd15_lora.safetensors",

@@ -16,5 +16,5 @@ updated_weights.json
 python_embeded
 .cog
 .vscode
-test*.py
+test*.*
 

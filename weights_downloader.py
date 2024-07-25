@@ -29,20 +29,31 @@ class WeightsDownloader:
             self.download(weight_str, url, dest)
 
     def download(self, weight_str, url, dest):
+        tar_file = url.endswith(".tar")
         if "/" in weight_str:
             subfolder = weight_str.rsplit("/", 1)[0]
-            dest = os.path.join(dest, subfolder)
-            os.makedirs(dest, exist_ok=True)
+            if tar_file:
+                dest = os.path.join(dest, subfolder)
+                os.makedirs(dest, exist_ok=True)
+            else:
+                dest_dir = os.path.join(dest, subfolder)
+                os.makedirs(dest_dir, exist_ok=True)
+                dest = os.path.join(dest, weight_str)
 
         print(f"⏳ Downloading {weight_str} to {dest}")
         start = time.time()
-        subprocess.check_call(
-            ["pget", "--log-level", "warn", "-xf", url, dest], close_fds=False
-        )
+        if tar_file:
+            subprocess.check_call(
+                ["pget", "--log-level", "warn", "-xf", url, dest], close_fds=False
+            )
+        else:
+            subprocess.check_call(
+                ["pget", "--log-level", "warn", "-f", url, dest], close_fds=False
+            )
         elapsed_time = time.time() - start
         try:
             file_size_bytes = os.path.getsize(
-                os.path.join(dest, os.path.basename(weight_str))
+                os.path.join(dest, os.path.basename(weight_str)) if tar_file else dest
             )
             file_size_megabytes = file_size_bytes / (1024 * 1024)
             print(
