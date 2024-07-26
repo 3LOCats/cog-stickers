@@ -1,6 +1,21 @@
 #!/bin/bash
 
-umount /mnt/volume_sgp1_01
+mount_point=$(df | grep /dev/sda | awk '{print $6}')
+
+if [ -z "$mount_point" ]; then
+  echo "没有找到挂载点 /dev/sda，跳过卸载"
+else
+  # 卸载挂载点
+  echo "正在卸载 $mount_point ..."
+  umount "$mount_point"
+
+  # 检查卸载是否成功
+  if [ $? -eq 0 ]; then
+    echo "成功卸载 $mount_point"
+  else
+    echo "卸载 $mount_point 失败"
+  fi
+fi
 
 # 更新包索引
 apt-get update
