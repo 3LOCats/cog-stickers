@@ -39,7 +39,7 @@ def main(filename):
     with open(filename, 'r') as f:
         workflow = json.load(f)
         weights = handle_weights(workflow)
-    print(' '.join(weights))
+    print('\n'.join(weights))
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

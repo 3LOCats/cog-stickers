@@ -17,4 +17,4 @@ python_embeded
 .cog
 .vscode
 test*.*
-
+.DS_Store
