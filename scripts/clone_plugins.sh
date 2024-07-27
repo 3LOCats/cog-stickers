@@ -7,7 +7,7 @@
 # List of repositories and their commit hashes to clone
 # Each entry in the array is a string containing the repository URL and the commit hash separated by a space.
 repos=(
-  "https://github.com/huchenlei/ComfyUI-layerdiffuse 151f746"
+  "https://github.com/huchenlei/ComfyUI-layerdiffuse ef55b8f"
 )
 
 # Destination directory
