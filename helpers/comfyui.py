@@ -21,6 +21,7 @@ class ComfyUI:
     def __init__(self, server_address):
         self.weights_downloader = WeightsDownloader()
         self.server_address = server_address
+        self.server_process = None
 
     def start_server(self, output_directory, input_directory):
         self.input_directory = input_directory
@@ -41,8 +42,14 @@ class ComfyUI:
 
     def run_server(self, output_directory, input_directory):
         command = f"python ./ComfyUI/main.py --output-directory {output_directory} --input-directory {input_directory} --disable-metadata --preview-method none --gpu-only"
-        server_process = subprocess.Popen(command, shell=True)
-        server_process.wait()
+        self.server_process = subprocess.Popen(command, shell=True)
+        self.server_process.wait()
+
+    def stop_server(self):
+        if self.server_process:
+            self.server_process.kill()
+            time.sleep(1)
+            self.server_process = None
 
     def is_server_running(self):
         try:

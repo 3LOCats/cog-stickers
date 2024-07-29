@@ -24,6 +24,9 @@ class Predictor(BasePredictor):
         self.comfyUI.start_server(OUTPUT_DIR, INPUT_DIR)
         self.comfyUI.load_workflow(workflow_json)
 
+    def stop_server(self):
+        self.comfyUI.stop_server()
+
     def cleanup(self):
         self.comfyUI.clear_queue()
         for directory in [OUTPUT_DIR, INPUT_DIR, COMFYUI_TEMP_OUTPUT_DIR]:
