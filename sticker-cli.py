@@ -2,7 +2,8 @@ import sys
 import os
 import argparse
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+project_dir = os.path.dirname(__file__)
+sys.path.append(project_dir)
 
 def run_command(command):
     import subprocess
@@ -15,7 +16,7 @@ def run_command(command):
 
 def install_packages(install_cuda:bool=True, install_others=True):
     import yaml
-    with open('cog.yaml', 'r') as file:
+    with open(os.path.join(project_dir, 'cog.yaml'), 'r') as file:
         config = yaml.safe_load(file).get('build')
 
     torch_versions = {
@@ -41,6 +42,8 @@ def install_packages(install_cuda:bool=True, install_others=True):
 
     if install_cuda:
         run_command(["pip install -q", ' '.join(cuda_pkgs)])
+    else:
+        pkgs.append('torchsde')
 
     if install_others:
         run_command(['python', '-m', 'pip install -q', ' '.join(pkgs)])
@@ -49,19 +52,22 @@ def install_packages(install_cuda:bool=True, install_others=True):
             run_command(r)
 
 def reset_project():
-    run_command('./scripts/reset.sh')
+    # run_command(f'sudo rm -rf {os.path.join(project_dir, "ComfyUI")}')
+    # run_command('git submodule update --init --recursive')
+    # run_command(os.path.join(project_dir, 'scripts/clone_plugins.sh'))
+    run_command(os.path.join(project_dir, 'scripts/reset.sh'))
 
 def download_weights():
     import json
 
-    from weights_from_workflow import handle_weights
-    with open('sticker_maker_api.json', 'r') as f:
+    from scripts.weights_from_workflow import handle_weights
+    with open(os.path.join(project_dir, 'sticker_maker_api.json'), 'r') as f:
         workflow = json.load(f)
         weights = handle_weights(workflow)
 
     print('Installing weights:')
     print('\n'.join(weights))
-    run_command(['python', './scripts/get_weights.py', ' '.join(weights)])
+    run_command(['python', os.path.join(project_dir, 'scripts/get_weights.py'), ' '.join(weights)])
 
 def start_server():
     run_command('nohup python -m cog.server.http &')
@@ -95,6 +101,7 @@ def predict(
         sticker_type=sticker_type,
         seed=seed
         )
+    p.stop_server()
     return files
 
 
@@ -104,6 +111,7 @@ def main():
 
     parser_setup = subparsers.add_parser('setup', help='setup the project')
     parser_setup.add_argument('-a', '--all', action='store_true', help='install all dependencies')
+    parser_setup.add_argument('-k', '--skip_cuda', action='store_true', help='skip installing cuda packages')
     parser_setup.add_argument('-p', '--packages', action='store_true', help='install python packages')
     parser_setup.add_argument('-r', '--reset', action='store_true', help='calling reset.sh to reset the project')
     parser_setup.add_argument('-w', '--weights', action='store_true', help='download weights')
@@ -122,7 +130,7 @@ def main():
         print('Setting up the project')
         if args.all or not any([args.packages, args.reset, args.weights]):
             print('Installing all dependencies')
-            install_packages()
+            install_packages(install_cuda=not args.skip_cuda)
             print('Resetting the project')
             reset_project()
             print('Downloading weights')
